@@ -29,12 +29,14 @@ def formulario_usuario(request):
         if name and email:
             url_del_servicio = "https://api-5wbi.onrender.com/users/create"  
             data = {'name': name, 'email': email}
+            print(url_del_servicio)
+            print(data)
+
             response = requests.post(url_del_servicio, data=data)
 
             print(response.text)
 
             return render(request, 'exito.html')
-
     return render(request, 'formulario.html')
 
 def exito(request):

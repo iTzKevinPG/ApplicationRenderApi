@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Formulario de Usuario</title>
     <style>
@@ -30,6 +31,7 @@
         label {
             font-weight: bold;
             margin-top: 10px;
+            display: block;
         }
 
         input {
@@ -37,6 +39,7 @@
             margin: 5px 0;
             border: 1px solid #ccc;
             border-radius: 3px;
+            width: 100%;
         }
 
         input[type="submit"] {
@@ -47,15 +50,13 @@
             padding: 10px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-top: 10px;
         }
 
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
 
-        /* Agrega estilos adicionales según sea necesario */
-
-        /* Logo de usuario */
         .user-logo {
             width: 50px;
             height: 50px;
@@ -66,20 +67,23 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
+            margin-bottom: 10px;
         }
     </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Usuario</title>
 </head>
+
 <body>
     <div class="container">
-        <div class="user-logo">
-            <span>Usuario</span>
-        </div>
+        <div class="user-logo">Usuario</div>
         <h1>Formulario de Usuario</h1>
-        <form method="post" >
+        <form method="post">
             {% csrf_token %}
             <label for="name">Nombre:</label>
             <input type="text" id="name" name="name" required>
-            
+
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
 
@@ -87,4 +91,5 @@
         </form>
     </div>
 </body>
+
 </html>

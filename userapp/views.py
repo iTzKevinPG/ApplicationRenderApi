@@ -36,6 +36,7 @@ def formulario_usuario(request):
                 return render(request, 'exito.html')
             except requests.exceptions.RequestException as e:
                 print(f"Error al conectar con el servidor: {e}")
+                return render(request, 'exito.html')
 
     return render(request, 'formulario.html')
 

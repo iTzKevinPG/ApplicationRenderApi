@@ -6,16 +6,21 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #ffcc00;
+            /* Fondo más llamativo */
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* Centra verticalmente en la pantalla */
         }
 
         .container {
             max-width: 400px;
-            margin: 0 auto;
             padding: 20px;
             background-color: #fff;
-            border-radius: 5px;
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -38,15 +43,18 @@
             padding: 10px;
             margin: 5px 0;
             border: 1px solid #ccc;
-            border-radius: 3px;
+            border-radius: 5px;
+            /* Bordes más redondeados */
             width: 100%;
+            transition: border-color 0.3s;
+            /* Añadida animación */
         }
 
         input[type="submit"] {
             background-color: #007bff;
             color: #fff;
             border: none;
-            border-radius: 3px;
+            border-radius: 5px;
             padding: 10px;
             cursor: pointer;
             transition: background-color 0.3s;
@@ -58,8 +66,8 @@
         }
 
         .user-logo {
-            width: 50px;
-            height: 50px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             background-color: #007bff;
             color: #fff;
@@ -67,7 +75,11 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-            margin-bottom: 10px;
+        }
+
+        .user-logo img {
+            max-width: 100%;
+            max-height: 100%;
         }
     </style>
     <meta charset="UTF-8">

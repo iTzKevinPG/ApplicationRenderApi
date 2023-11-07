@@ -2,48 +2,40 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view  
 from .models import User    
 from .serializers import UserSerializer 
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+import requests
 
-# Create your views here.
-
-# Obtener todos los usuarios
 @api_view(['GET'])
 def getUsers(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
-# Obtener un solo usuario por ID
-@api_view(['GET'])
-def getUser(request, pk):
-    user = User.objects.get(id=pk)
-    serializer = UserSerializer(user, many=False)
-    return Response(serializer.data)
-
-# Agregar un usuario
 @api_view(['POST'])
 def addUser(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()   
-        return Response(serializer.data, status=201)  # Devuelve 201 Created en caso de éxito
+        return Response(serializer.data, status=201) 
 
-    return Response(serializer.errors, status=400)  # Devuelve errores de validación en caso de fallo
+    return Response(serializer.errors, status=400) 
 
-# Actualizar un usuario
-@api_view(['PUT'])
-def updateUser(request, pk):
-    user = User.objects.get(id=pk)
-    serializer = UserSerializer(instance=user, data=request.data)
-    if serializer.is_valid():
-        serializer.save()   
-        return Response(serializer.data)
+def formulario_usuario(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
 
-    return Response(serializer.errors, status=400)
+        if name and email:
+            url_del_servicio = "https://api-5wbi.onrender.com/users/create"  
+            data = {'name': name, 'email': email}
+            response = requests.post(url_del_servicio, data=data)
 
-# Eliminar un usuario
-@api_view(['DELETE'])
-def deleteUser(request, pk):
-    user = User.objects.get(id=pk)
-    user.delete()
+            print(response.text)
 
-    return Response('User(s) deleted', status=204)  # Devuelve 204 No Content en caso de éxito
+            return render(request, 'exito.html')
+
+    return render(request, 'formulario.html')
+
+def exito(request):
+    return render(request, 'exito.html')

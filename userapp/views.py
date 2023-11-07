@@ -38,7 +38,7 @@ def formulario_usuario(request):
                 print(f"Error al conectar con el servidor: {e}")
                 return render(request, 'exito.html')
 
-    return render(request, 'exito.html')
+    return render({}, 'formulario.html')
 
 def exito(request):
     return render(request, 'exito.html')

@@ -29,9 +29,14 @@ def formulario_usuario(request):
         if name and email:
             url_del_servicio = "https://api-5wbi.onrender.com/users/create"  
             data = {'name': name, 'email': email}
-            requests.post(url_del_servicio, data=data)
-            return render(request, 'exito.html')
-        
+
+            try:
+                response = requests.post(url_del_servicio, data=data)
+                response.raise_for_status()
+                return render(request, 'exito.html')
+            except requests.exceptions.RequestException as e:
+                print(f"Error al conectar con el servidor: {e}")
+
     return render(request, 'formulario.html')
 
 def exito(request):

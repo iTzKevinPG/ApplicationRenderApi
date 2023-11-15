@@ -10,7 +10,10 @@ import requests
 def getUsers(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
+
+    context = {'users_data': serializer.data}
+
+    return render(request, 'users_list.html', context)
 
 @api_view(['POST'])
 def addUser(request):

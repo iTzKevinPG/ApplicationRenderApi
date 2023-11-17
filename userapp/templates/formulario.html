@@ -90,14 +90,19 @@
     <div class="container">
         <div class="user-logo">Usuario</div>
         <h1>Formulario de Usuario</h1>
-        <form method="post">
+        <form action="{% url 'addUser' %}" method="post">
             {% csrf_token %}
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-
+        
+            <div>
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+        
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+        
             <input type="submit" value="Enviar">
         </form>
     </div>

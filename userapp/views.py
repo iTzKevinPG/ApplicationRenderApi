@@ -17,34 +17,31 @@ def getUsers(request):
 
 @api_view(['POST'])
 def addUser(request):
-    serializer = UserSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()   
-        return Response(serializer.data, status=201) 
+    name = request.POST.get('name')
+    email = request.POST.get('email')
 
-    return Response(serializer.errors, status=400) 
+    if name and email:
+        url_del_servicio = "https://api-5wbi.onrender.com/users/create"
+        data = {'name': name, 'email': email}
 
+        try:
+            response = requests.post(url_del_servicio, data=data)
+            
+            if response.status_code == 200:
+                # Redirigir al usuario a la página de éxito o a donde desees
+                return redirect('exito')
+            else:
+                # Manejar el caso en que la solicitud al servicio externo no fue exitosa
+                return render(request, 'users_list.html', {'error_message': 'Error en la solicitud al servicio externo'})
+
+        except requests.exceptions.RequestException as e:
+            print(f"Error al conectar con el servidor: {e}")
+            # Manejar el caso de una excepción
+            return render(request, 'users_list.html', {'error_message': 'Error en la conexión con el servidor externo'})
+
+    # Manejar el caso en que name o email no estén presentes
+    return render(request, 'users_list.html', {'error_message': 'Nombre y correo electrónico son obligatorios'})
+
+@api_view(['GET'])
 def formulario_usuario(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-
-        if name and email:
-            url_del_servicio = "https://api-5wbi.onrender.com/users/create"  
-            data = {'name': name, 'email': email}
-
-            try:
-                response = requests.post(url_del_servicio, data=data)
-                exito(request)
-                
-                return response
-            except requests.exceptions.RequestException as e:
-                print(f"Error al conectar con el servidor: {e}")
-
-    if request.method == 'GET':
-        return render(request, 'formulario.html')
-
-
-def exito(request):
-    url_del_servicio = "https://api-5wbi.onrender.com/users/exito" 
-    return redirect(url_del_servicio, code=302)
+    return render(request, 'formulario.html')

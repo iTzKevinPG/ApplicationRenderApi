@@ -35,8 +35,10 @@ def create(request):
 
         response = requests.post(url_del_servicio, data=data)
         
+        return render(response, 'exito.html')
+        
         if response.status_code != 200:
-            return render(request, 'users_list.html', {'error_message': 'Error en la solicitud al servicio externo'})
+            return render(response, 'users_list.html', {'error_message': 'Error en la solicitud al servicio externo'})
 
     return render(request, 'users_list.html', {'error_message': 'Nombre y correo electrónico son obligatorios'})
 

@@ -28,14 +28,14 @@ def addUser(request):
 def create(request):
     name = request.POST.get('name')
     email = request.POST.get('email')
+    data = {'name': name, 'email': email}
     
-    
-    if name and email:
-        data = {'name': name, 'email': email}
-        request.data = data
-        response = addUser(request)
+    serializer = UserSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()   
+        return Response(serializer.errors, status=200) 
 
-    return response
+    return Response(serializer.errors, status=400) 
 
 @api_view(['GET'])
 def formulario_usuario(request):

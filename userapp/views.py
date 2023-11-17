@@ -32,10 +32,7 @@ def create(request):
     response = Response(serializer.errors, status=400) 
     
     if name and email:
-        url_del_servicio = "https://api-5wbi.onrender.com/users/creation"
-        data = {'name': name, 'email': email}
-
-        response = requests.post(url_del_servicio, data=data)
+        response = addUser(data)
 
     return response
 

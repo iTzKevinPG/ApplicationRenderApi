@@ -24,7 +24,6 @@ def addUser(request):
 
     return Response(serializer.errors, status=400) 
 
-@api_view(['POST'])
 def formulario_usuario(request):
     if request.method == 'POST':
         name = request.POST.get('name')

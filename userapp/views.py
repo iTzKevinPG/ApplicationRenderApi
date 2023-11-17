@@ -32,7 +32,7 @@ def create(request):
     response = Response(serializer.errors, status=400) 
     
     if name and email:
-        response = addUser(data)
+        response = addUser(request)
 
     return response
 

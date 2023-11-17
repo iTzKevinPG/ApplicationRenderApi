@@ -33,7 +33,7 @@ def create(request):
     serializer = UserSerializer(data=data)
     if serializer.is_valid():
         serializer.save()   
-        return Response(serializer.errors, status=200) 
+        return render(request, 'exito.html')
 
     return Response(serializer.errors, status=400) 
 

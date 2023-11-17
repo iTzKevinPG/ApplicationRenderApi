@@ -36,13 +36,15 @@ def formulario_usuario(request):
 
             try:
                 response = requests.post(url_del_servicio, data=data)
-                return render(request, 'exito.html')
+                return exito(request)
             except requests.exceptions.RequestException as e:
                 print(f"Error al conectar con el servidor: {e}")
-                return render(request, 'exito.html')
 
     if request.method == 'GET':
         return render(request, 'formulario.html')
+    else:
+        return exito(request)
+
 
 def exito(request):
     return render(request, 'exito.html')

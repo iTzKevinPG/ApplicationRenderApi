@@ -35,15 +35,17 @@ def formulario_usuario(request):
 
             try:
                 response = requests.post(url_del_servicio, data=data)
-                return exito(request)
+                exito(request)
+                
+                return response
             except requests.exceptions.RequestException as e:
                 print(f"Error al conectar con el servidor: {e}")
 
     if request.method == 'GET':
-        return render(request, 'formulario.html')
-    else:
-        return exito(request)
+        url_del_servicio = "https://api-5wbi.onrender.com/users/formulario" 
+        return redirect(url_del_servicio, code=302)
 
 
 def exito(request):
-    return render(request, 'exito.html')
+    url_del_servicio = "https://api-5wbi.onrender.com/users/exito" 
+    return redirect(url_del_servicio, code=302)

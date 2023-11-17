@@ -16,12 +16,21 @@ def getUsers(request):
     return render(request, 'users_list.html', context)
 
 @api_view(['POST'])
+def addUser(request):
+    serializer = UserSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()   
+        return Response(serializer.data, status=201) 
+
+    return Response(serializer.errors, status=400) 
+
+@api_view(['POST'])
 def create(request):
     name = request.POST.get('name')
     email = request.POST.get('email')
 
     if name and email:
-        url_del_servicio = "https://api-5wbi.onrender.com/users/create"
+        url_del_servicio = "https://api-5wbi.onrender.com/users/creation"
         data = {'name': name, 'email': email}
 
         try:

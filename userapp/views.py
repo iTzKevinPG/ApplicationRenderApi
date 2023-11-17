@@ -20,7 +20,7 @@ def addUser(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()   
-        return redirect('exito')
+        return Response(serializer.errors, status=200) 
 
     return Response(serializer.errors, status=400) 
 
@@ -29,13 +29,15 @@ def create(request):
     name = request.POST.get('name')
     email = request.POST.get('email')
 
+    response = Response(serializer.errors, status=400) 
+    
     if name and email:
         url_del_servicio = "https://api-5wbi.onrender.com/users/creation"
         data = {'name': name, 'email': email}
 
-        requests.post(url_del_servicio, data=data)
+        response = requests.post(url_del_servicio, data=data)
 
-    return render(request, 'users_list.html')
+    return response
 
 @api_view(['GET'])
 def formulario_usuario(request):

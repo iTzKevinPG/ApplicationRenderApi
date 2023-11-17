@@ -16,7 +16,7 @@ def getUsers(request):
     return render(request, 'users_list.html', context)
 
 @api_view(['POST'])
-def addUser(request):
+def add_user(request):
     name = request.POST.get('name')
     email = request.POST.get('email')
 

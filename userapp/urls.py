@@ -5,5 +5,5 @@ urlpatterns = [
     path('', views.getUsers),
     path('formulario', views.formulario_usuario),
     path('exito', views.exito),
-    path('create', views.addUser),
+    path('create', views.create),
 ]

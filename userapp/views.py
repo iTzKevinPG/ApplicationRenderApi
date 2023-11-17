@@ -33,14 +33,9 @@ def create(request):
         url_del_servicio = "https://api-5wbi.onrender.com/users/creation"
         data = {'name': name, 'email': email}
 
-        response = requests.post(url_del_servicio, data=data)
-        
-        return render(response, 'exito.html')
-        
-        if response.status_code != 200:
-            return render(response, 'users_list.html', {'error_message': 'Error en la solicitud al servicio externo'})
+        requests.post(url_del_servicio, data=data)
 
-    return render(request, 'users_list.html', {'error_message': 'Nombre y correo electrónico son obligatorios'})
+    return render(request, 'users_list.html')
 
 @api_view(['GET'])
 def formulario_usuario(request):

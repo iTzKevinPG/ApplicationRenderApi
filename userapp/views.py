@@ -28,10 +28,11 @@ def addUser(request):
 def create(request):
     name = request.POST.get('name')
     email = request.POST.get('email')
-
-    response = Response(serializer.errors, status=400) 
+    
     
     if name and email:
+        data = {'name': name, 'email': email}
+        request.data = data
         response = addUser(request)
 
     return response

@@ -4,6 +4,6 @@ from . import views
 urlpatterns = [
     path('', views.getUsers),
     path('formulario', views.formulario_usuario),
-    path('exito/', exito, name='exito'),
+    path('exito/', views.exito, name='exito'),
     path('create/', views.create, name='create'),
 ]

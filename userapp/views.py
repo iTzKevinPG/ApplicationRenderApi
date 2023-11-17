@@ -24,6 +24,7 @@ def addUser(request):
 
     return Response(serializer.errors, status=400) 
 
+@api_view(['POST'])
 def formulario_usuario(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -35,7 +36,6 @@ def formulario_usuario(request):
 
             try:
                 response = requests.post(url_del_servicio, data=data)
-                response.raise_for_status()
                 return render(request, 'exito.html')
             except requests.exceptions.RequestException as e:
                 print(f"Error al conectar con el servidor: {e}")

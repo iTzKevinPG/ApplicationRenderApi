@@ -20,7 +20,7 @@ def addUser(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()   
-        return Response(serializer.data, status=200) 
+        return redirect('exito')
 
     return Response(serializer.errors, status=400) 
 
@@ -33,17 +33,10 @@ def create(request):
         url_del_servicio = "https://api-5wbi.onrender.com/users/creation"
         data = {'name': name, 'email': email}
 
-        try:
-            response = requests.post(url_del_servicio, data=data)
-            
-            if response.status_code == 200:
-                return redirect('exito')
-            else:
-                return render(request, 'users_list.html', {'error_message': 'Error en la solicitud al servicio externo'})
-
-        except requests.exceptions.RequestException as e:
-            print(f"Error al conectar con el servidor: {e}")
-            return render(request, 'users_list.html', {'error_message': 'Error en la conexión con el servidor externo'})
+        response = requests.post(url_del_servicio, data=data)
+        
+        if response.status_code != 200:
+            return render(request, 'users_list.html', {'error_message': 'Error en la solicitud al servicio externo'})
 
     return render(request, 'users_list.html', {'error_message': 'Nombre y correo electrónico son obligatorios'})
 
